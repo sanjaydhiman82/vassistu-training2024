@@ -1,0 +1,1 @@
+# vassistu-training2024
