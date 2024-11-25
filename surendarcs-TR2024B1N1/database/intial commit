@@ -1,0 +1,81 @@
+-- Create the database for the Resume site
+CREATE DATABASE IF NOT EXISTS ResumeSite;
+USE ResumeSite;
+
+CREATE TABLE IF NOT EXISTS User (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    profession VARCHAR(100),
+    description TEXT,
+    email VARCHAR(100),
+    phone VARCHAR(15),
+    linkedin_url VARCHAR(200)
+);
+CREATE TABLE IF NOT EXISTS Education (
+    education_id INT AUTO_INCREMENT PRIMARY KEY,
+    degree VARCHAR(100),
+    university_name VARCHAR(100),
+    location VARCHAR(100),
+    start_date DATE,
+    end_date DATE
+);
+
+CREATE TABLE IF NOT EXISTS Skills (
+    skill_id INT AUTO_INCREMENT PRIMARY KEY,
+    skill_name VARCHAR(100),
+    skill_type VARCHAR(50)
+);
+
+CREATE TABLE IF NOT EXISTS Projects (
+    project_id INT AUTO_INCREMENT PRIMARY KEY,
+    project_name VARCHAR(100),
+    description TEXT,
+    technologies_used TEXT,
+    start_date DATE,
+    end_date DATE
+);
+
+CREATE TABLE IF NOT EXISTS Contact (
+    contact_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    message TEXT
+);
+
+INSERT INTO User (name, profession, description, email, phone, linkedin_url) 
+VALUES ('Surendar B', 'Computer Science Student', 'Enthusiastic computer science student with hands-on experience in web development projects. Proficient in Java, HTML, CSS, and JavaScript. Passionate about creating dynamic and user-friendly web applications, eager to contribute innovative solutions in a collaborative team environment.', 'surendarbalaji2006@gmail.com', '+91-8667872145', 'www.linkedin.com/in/surendarb1');
+
+INSERT INTO Education (degree, university_name, location, start_date, end_date) 
+VALUES ('Bachelor of Technology in Computer Science & Engineering', 'Dayananda Sagar University', 'Bengaluru, Karnataka', '2021-09-01', NULL);
+
+INSERT INTO Skills (skill_name, skill_type) 
+VALUES 
+    ('Java', 'Programming Language'),
+    ('Python', 'Programming Language'),
+    ('C++', 'Programming Language'),
+    ('HTML', 'Web Development'),
+    ('CSS', 'Web Development'),
+    ('JavaScript', 'Web Development');
+
+INSERT INTO Projects (project_name, description, technologies_used, start_date, end_date) 
+VALUES 
+    ('Portfolio Website', 'A website showcasing skills, projects, and contact information, built using HTML, CSS, and JavaScript.', 'HTML, CSS, JavaScript', '2023-01-01', NULL),
+    ('Starbucks Website Menu Redesign', 'A comprehensive redesign aimed at enhancing user experience and interaction with the Starbucks brand.', 'HTML, CSS, JavaScript', '2023-06-01', NULL);
+
+INSERT INTO Contact (name, email, message) 
+VALUES 
+    ('John Doe', 'johndoe@example.com', 'Interested in collaborating on projects.'),
+    ('Jane Smith', 'janesmith@example.com', 'I would like to discuss potential opportunities.');
+
+SELECT * FROM User;
+
+SELECT * FROM Education;
+
+SELECT * FROM Skills;
+
+SELECT * FROM Projects;
+
+SELECT * FROM Contact;
+
+
+DROP DATABASE IF EXISTS ResumeSite;
