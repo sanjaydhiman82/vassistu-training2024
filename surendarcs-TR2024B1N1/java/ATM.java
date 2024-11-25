@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.InputMismatchException;
 
 // Class to represent User
 class User {
@@ -19,17 +18,19 @@ class User {
 
 // Class to represent ATM Transactions
 class Transaction {
-    private double balance = 0;
-    private StringBuilder transactionHistory = new StringBuilder();
+    private double balance;
+    private StringBuilder transactionHistory;
 
-    // Deposit money to account
+    public Transaction() {
+        this.balance = 0.0;
+        this.transactionHistory = new StringBuilder();
+    }
+
+    // Deposit money to account (negative amounts allowed)
     public void deposit(double amount) {
-        if (amount > 0) {
-            balance += amount;
-            transactionHistory.append("Deposited: ").append(amount).append("\n");
-        } else {
-            System.out.println("Invalid deposit amount.");
-        }
+        balance += amount;
+        transactionHistory.append(amount >= 0 ? "Deposited: " : "Deposited (Negative): ");
+        transactionHistory.append(amount).append("\n");
     }
 
     // Withdraw money from account
@@ -69,15 +70,7 @@ public class ATM {
             System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
             
-            int choice = -1;
-            try {
-                choice = scanner.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input! Please enter a number.");
-                scanner.nextLine();  // Clear invalid input
-                continue;
-            }
-            
+            int choice = scanner.nextInt();
             switch (choice) {
                 case 1: 
                     handleWithdrawal();
@@ -99,36 +92,16 @@ public class ATM {
 
     // Method to handle withdrawal
     public static void handleWithdrawal() {
-        double amount = getAmount("Enter amount to withdraw: ");
-        if (amount > 0) {
-            transaction.withdraw(amount);
-        }
+        System.out.print("Enter amount to withdraw: ");
+        double amount = scanner.nextDouble();
+        transaction.withdraw(amount);
     }
 
     // Method to handle deposit
     public static void handleDeposit() {
-        double amount = getAmount("Enter amount to deposit: ");
-        if (amount > 0) {
-            transaction.deposit(amount);
-        }
-    }
-
-    // Method to get valid amount input
-    private static double getAmount(String prompt) {
-        double amount = 0;
-        System.out.print(prompt);
-        try {
-            amount = scanner.nextDouble();
-            if (amount <= 0) {
-                System.out.println("Amount must be positive.");
-                return 0;
-            }
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid amount! Please enter a valid number.");
-            scanner.nextLine(); // Clear invalid input
-            return 0;
-        }
-        return amount;
+        System.out.print("Enter amount to deposit: ");
+        double amount = scanner.nextDouble();
+        transaction.deposit(amount);
     }
 
     // Method to show balance statement (transaction history for the session)
@@ -152,6 +125,5 @@ public class ATM {
         } else {
             System.out.println("Invalid credentials! Exiting...");
         }
-        scanner.close();  // Close the scanner to avoid resource leak
     }
 }
